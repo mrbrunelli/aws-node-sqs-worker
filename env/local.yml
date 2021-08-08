@@ -1,0 +1,6 @@
+ELASTICMQ_URL: http://0.0.0.0:9324
+REGION: us-east-1
+QUEUE_URL: { Ref: myQueue }
+ACCESS_KEY_ID: na
+SECRET_ACCESS_KEY: na
+# QUEUE_URL: http://0.0.0.0:9324/queue/myQueue

@@ -1,3 +1,0 @@
-ELASTICMQ_URL: http://0.0.0.0:9324
-QUEUE_URL: ${env:ELASTICMQ_URL}/queue/myQueue
-REGION: us-east-1

@@ -9,9 +9,10 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  stage: ${opt:stage, 'local'}
+  region: ${opt:region, 'us-east-1'}
   lambdaHashingVersion: 20201221
-  stage: ${opt:stage, dev}
-  region: ${opt:stage, us-east-1}
+  environment: ${file(./env/${self:provider.stage}.yml)}
   iam:
     role:
       statements:
@@ -20,11 +21,17 @@ provider:
             - "sqs:SendMessage"
             - "sqs:ReceiveMessage"
           Resource:
-            - Fn::GetAtt:
-                - myQueue
-                - Arn
+            - Fn::GetAtt: [myQueue, Arn]
 
-environment: ${file(./env/${self.provider.stage}.yml)}
+custom:
+  serverless-offline-sqs:
+    autoCreate: true
+    apiVersion: "2012-11-05"
+    endpoint: ${self:provider.environment.ELASTICMQ_URL}
+    region: ${self:provider.region}
+    accessKeyId: ${self:provider.environment.ACCESS_KEY_ID}
+    secretAccessKey: ${self:provider.environment.SECRET_ACCESS_KEY}
+    skipCacheInvalidation: false
 
 functions:
   producer:
@@ -48,13 +55,3 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: myQueue
-
-custom:
-  serverless-offline-sqs:
-    autoCreate: false
-    apiVersion: "2012-11-05"
-    endpoint: ${env:ELASTICMQ_URL}
-    region: ${self:provider:region}
-    accessKeyId: na
-    secretAccessKey: na
-    skipCacheInvalidation: false

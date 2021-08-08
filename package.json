@@ -2,11 +2,13 @@
   "name": "aws-node-sqs-worker",
   "version": "1.0.0",
   "description": "Serverless Framework Node SQS Producer-Consumer on AWS",
-  "author": "",
+  "author": "Matheus Ricardo Brunelli",
   "license": "MIT",
   "scripts": {
-    "sqs:up": "docker-compose up",
-    "sqs:down": "docker-compose down"
+    "start:local": "serverless offline start --stage local --region us-east-1",
+    "start:debug": "SLS_DEBUG=* serverless offline start --stage local --region us-east-1",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down"
   },
   "dependencies": {
     "aws-sdk": "^2.963.0",
