@@ -1,6 +1,6 @@
 service: aws-node-sqs-worker
 
-frameworkVersion: "2"
+frameworkVersion: "2.53"
 
 plugins:
   - serverless-offline
