@@ -53,7 +53,7 @@ custom:
   serverless-offline-sqs:
     autoCreate: false
     apiVersion: "2012-11-05"
-    endpoint: http://0.0.0.0:9324
+    endpoint: ${env:ELASTICMQ_URL}
     region: ${self:provider:region}
     accessKeyId: na
     secretAccessKey: na
