@@ -1,13 +1,8 @@
 const AWS = require('aws-sdk')
 
-AWS.config.update({
-  region: process.env.REGION
-})
-
 const sqs = new AWS.SQS({
   endpoint: new AWS.Endpoint(process.env.ELASTICMQ_URL),
-  accessKeyId: process.env.ACCESS_KEY_ID,
-  secretAccessKey: process.env.SECRET_ACCESS_KEY
+  region: process.env.REGION
 })
 
 exports.producer = async (event) => {
