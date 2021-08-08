@@ -1,6 +1,14 @@
-const { SQS } = require('aws-sdk')
+const AWS = require('aws-sdk')
 
-const sqs = new SQS({ region: process.env.REGION })
+AWS.config.update({
+  region: process.env.REGION
+})
+
+const sqs = new AWS.SQS({
+  endpoint: new AWS.Endpoint(process.env.ELASTICMQ_URL),
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
+})
 
 exports.producer = async (event) => {
   const message = {
@@ -31,5 +39,16 @@ exports.consumer = async (event) => {
     }).promise()
 
     console.log(`Message ${message.messageId} deleted!`)
+  }
+}
+
+exports.listQueues = async (event) => {
+  const { QueueUrls } = await sqs.listQueues().promise()
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      queues: QueueUrls
+    })
   }
 }

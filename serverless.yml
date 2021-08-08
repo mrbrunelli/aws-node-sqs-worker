@@ -49,6 +49,14 @@ functions:
             Fn::GetAtt:
               - myQueue
               - Arn
+
+  listQueues:
+    handler: handler.listQueues
+    events:
+      - http:
+          method: get
+          path: queues
+
 resources:
   Resources:
     myQueue:
