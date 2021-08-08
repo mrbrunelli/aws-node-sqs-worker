@@ -21,5 +21,15 @@ exports.producer = async (event) => {
 }
 
 exports.consumer = async (event) => {
-  console.log(event)
+  for (message of event.Records) {
+    const body = JSON.parse(message.body)
+    console.log(`Message received: ${body.message}`)
+
+    await sqs.deleteMessage({
+      QueueUrl: process.env.QUEUE_URL,
+      ReceiptHandle: message.receiptHandle
+    }).promise()
+
+    console.log(`Message ${message.messageId} deleted!`)
+  }
 }
