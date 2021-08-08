@@ -11,7 +11,7 @@ exports.producer = async (event) => {
   await sqs.sendMessage({
     MessageBody: JSON.stringify(message),
     QueueUrl: process.env.QUEUE_URL,
-    DelaySeconds: 0
+    DelaySeconds: 5
   }).promise()
 
   return {
