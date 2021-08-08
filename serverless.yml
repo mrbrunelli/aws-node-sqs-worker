@@ -19,4 +19,5 @@ functions:
       QUEUE_URL: ${construct:jobs.queueUrl}
 
 plugins:
-  - serverless-lift
+  - serverless-offline
+  - serverless-offline-sqs
