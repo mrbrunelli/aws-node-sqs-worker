@@ -30,7 +30,7 @@ yarn start:local
 
 ### Messages and Queues
 
-> The SQS event is triggered after sending the message, with 5 seconds delay.
+> The SQS event is triggered after sending a message, with 5 seconds delay.
 
 1. Call listQueue lambda to check queues url
 
